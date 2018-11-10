@@ -48,6 +48,14 @@ function curl_pkg() {
 
 
 function download_pkg() {
+    if [ ! -f "$gcc_dir/bin/gcc" ]; then
+        notice "downloading gcc"
+        # wget https://github.com/iohub/vimbox/releases/download/gcc6.4.0-prebuilt/gcc6.4.0-glibc2.18-linux-86_64.tar.xz
+        mkdir -p $HOME/.opt
+        ln -sf $HOME/.opt /tmp/opt
+        notice "extract gcc"
+        tar -xvJf gcc6.4.0-glibc2.18-linux-86_64.tar.xz -C /tmp/opt > /dev/null || error "extract gcc"
+    fi
     if [ ! -f "$ncurses_pkg" ]; then
         curl_pkg https://ftp.gnu.org/gnu/ncurses/ncurses-5.8.tar.gz
     fi
@@ -261,7 +269,7 @@ function init_vim() {
 
 
 download_pkg
-# build_deps
+build_deps
 build_python2
 # build_vim
 # init_vim
