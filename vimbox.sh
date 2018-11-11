@@ -12,13 +12,15 @@ python_dir=${vimbox_dir}/py2.7
 base_pkg_dir=${vimbox_dir}/base
 vim_dir=${vimbox_dir}/vim
 
-vim_conf_dir=${vimbox_dir}/dconf
+vim_conf_dir=${vimbox_dir}/rc
 gcc_linker="-Wl,--rpath=${glibc_dir}/lib:${gcc_dir}/lib64:${base_pkg_dir}/lib:/lib64:/usr/lib64:/lib -Wl,--dynamic-linker=${glibc_dir}/lib/ld-2.18.so"
 
 default_cc="gcc -O3 -I${glibc_dir}/include -B${glibc_dir}/lib"
 default_cxx="c++ -I${glibc_dir}/include -B${glibc_dir}/lib"
 current_dir=`pwd`
-ln -sf ${current_dir} ${vimbox_dir}/build
+mkdir -p $HOME/.opt
+ln -sf $HOME/.opt /tmp/opt
+ln -sf ${current_dir} /tmp/opt/build
 
 RESET="\x1b[0m";
 RED_BOLD="\x1b[1;31m";
@@ -50,9 +52,7 @@ function curl_pkg() {
 function download_pkg() {
     if [ ! -f "$gcc_dir/bin/gcc" ]; then
         notice "downloading gcc"
-        # wget https://github.com/iohub/vimbox/releases/download/gcc6.4.0-prebuilt/gcc6.4.0-glibc2.18-linux-86_64.tar.xz
-        mkdir -p $HOME/.opt
-        ln -sf $HOME/.opt /tmp/opt
+        wget https://github.com/iohub/vimbox/releases/download/gcc6.4.0-prebuilt/gcc6.4.0-glibc2.18-linux-86_64.tar.xz || error "download gcc"
         notice "extract gcc"
         tar -xvJf gcc6.4.0-glibc2.18-linux-86_64.tar.xz -C /tmp/opt > /dev/null || error "extract gcc"
     fi
@@ -207,7 +207,7 @@ _curses_panel _curses_panel.c -lpanel -lncurses
 zlib zlibmodule.c -I${base_pkg_dir}/include -L${base_pkg_dir}/lib -lz
 EOT
 
-    export LD_LIBRARY_PATH=${gcc_dir}/lib64:${base_pkg_dir}/lib:$python_dir/lib:/lib64
+    export LD_LIBRARY_PATH=/tmp/opt/build/Python-2.7.10:${gcc_dir}/lib64:${base_pkg_dir}/lib:${python_dir}/lib:/lib64
     export CFLAGS="-I${base_pkg_dir}/include  -I${base_pkg_dir}/include/ncurses"
     PLINKER="-Wl,--rpath=/tmp/opt/build/Python-2.7.10:${python_dir}/lib:${glibc_dir}/lib:${gcc_dir}/lib64:${base_pkg_dir}/lib:/lib64:/usr/lib64:/lib -Wl,--dynamic-linker=${glibc_dir}/lib/ld-2.18.so"
     export LDFLAGS="-L${base_pkg_dir}/lib -L${gcc_dir}/lib64 -L/tmp/opt/glibc/lib ${PLINKER}"
@@ -244,8 +244,8 @@ function build_vim() {
 
 function init_vim() {
     echo 'downloading vimrc'
-    VIMRC=https://gist.githubusercontent.com/iohub/b14d93b0fcdd47bb4aa85b53d05a84b9/raw
-    HCONF=$vimbox_dir/vimconf
+    VIMRC=https://raw.githubusercontent.com/iohub/vimbox/master/vimrc
+    HCONF=$vim_conf_dir
     curl $VIMRC -o vimrc
     echo 'installing vim-plug'
     curl -fLo $HCONF/autoload/plug.vim --create-dirs \
@@ -265,11 +265,13 @@ function init_vim() {
     echo "export EDITOR=dvim" >> ${vimbox_dir}/env
     echo "export PATH=\$vim_dir/bin:\$GOHOME/bin:\$PATH" >> ${vimbox_dir}/env
     echo "alias vim='lvim -u $HCONF/vimrc'" >> ${vimbox_dir}/env
+    source ${vimbox_dir}/env
+    lvim -u $HCONF/vimrc +PlugInstall +qall
 }
 
 
 download_pkg
-build_deps
-build_python2
+# build_deps
+# build_python2
 # build_vim
-# init_vim
+init_vim

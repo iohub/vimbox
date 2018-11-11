@@ -88,7 +88,7 @@ let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 
 call plug#end()
 
-colorscheme gruvbox
+" colorscheme gruvbox
 set guioptions=
 set background=dark
 hi CursorLine cterm=none ctermbg=DarkGrey ctermfg=White
