@@ -34,6 +34,7 @@ termcap_pkg=termcap-1.3.1.tar.gz
 readline_pkg=readline-4.3.tar.gz
 python_pkg=Python-2.7.10.tgz
 vim_pkg=vim-8.1.tar.bz2
+gcc_pkg=gcc6.4.0-glibc2.18-linux-86_64.tar.xz
 md5txt=md5sum.txt
 
 export PATH=${gcc_dir}/bin:$PATH
@@ -51,8 +52,10 @@ function curl_pkg() {
 
 function download_pkg() {
     if [ ! -f "$gcc_dir/bin/gcc" ]; then
-        notice "downloading gcc"
-        wget https://github.com/iohub/vimbox/releases/download/gcc6.4.0-prebuilt/gcc6.4.0-glibc2.18-linux-86_64.tar.xz || error "download gcc"
+        if [ ! -f "$gcc_pkg" ]; then
+            notice "downloading gcc"
+            wget https://github.com/iohub/vimbox/releases/download/gcc6.4.0-prebuilt/gcc6.4.0-glibc2.18-linux-86_64.tar.xz || error "download gcc"
+        fi
         notice "extract gcc"
         tar -xvJf gcc6.4.0-glibc2.18-linux-86_64.tar.xz -C /tmp/opt > /dev/null || error "extract gcc"
     fi
@@ -213,9 +216,9 @@ EOT
     export LDFLAGS="-L${base_pkg_dir}/lib -L${gcc_dir}/lib64 -L/tmp/opt/glibc/lib ${PLINKER}"
     ./configure --prefix=$python_dir --enable-shared  --enable-unicode=ucs4 > config.log 2>&1 || error "configure python"
     notice "build python"
-    make > make.log || error "build python"
+    make > make.log 2>&1 || error "build python"
     notice "install python"
-    make install || error "install python"
+    make install > install.log 2>&1 || error "install python"
     cd ..
 }
 
@@ -269,9 +272,12 @@ function init_vim() {
     lvim -u $HCONF/vimrc +PlugInstall +qall
 }
 
+function Main() {
+    download_pkg
+    build_deps
+    build_python2
+    build_vim
+    init_vim
+}
 
-download_pkg
-# build_deps
-# build_python2
-# build_vim
-init_vim
+Main
