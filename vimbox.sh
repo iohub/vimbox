@@ -100,7 +100,7 @@ function build_ncurses() {
     notice "build ncurses"
     make > make.log 2>&1  || error "build ncurses"
     notice "install ncurses"
-    make install || error "install ncurses"
+    make install > install.log 2>&1 || error "install ncurses"
     cd ..
     unset CPPFLAGS
 }
