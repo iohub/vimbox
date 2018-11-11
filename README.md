@@ -14,6 +14,6 @@ __   _(_)_ __ ___ | |__   _____  __
 ## usage
 ```shell
 curl -O https://raw.githubusercontent.com/iohub/vimbox/master/vimbox.sh
-sh vimbox.sh
+bash vimbox.sh
 ```
 
