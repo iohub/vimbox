@@ -1,6 +1,6 @@
 # vimbox
 
-Script to build a zero dependency vim8 & YCM without root privilege
+Script to build a zero dependency vim8 without root privilege
 
 ```shell
        _           _               
