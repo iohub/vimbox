@@ -15,5 +15,7 @@ __   _(_)_ __ ___ | |__   _____  __
 ```shell
 curl -O https://raw.githubusercontent.com/iohub/vimbox/master/vimbox.sh
 bash vimbox.sh
+source ~/.vimbox/env
+vim --version
 ```
 
