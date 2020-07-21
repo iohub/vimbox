@@ -56,6 +56,8 @@ let g:syntastic_go_checkers = ['go', 'golint', 'errcheck']
 " rustup component add rust-src --toolchain nightly
 " [x] Install coc-rls
 " :CocInstall coc-rust-analyzer
+" manual download
+" /home/u/.config/coc/extensions/coc-rust-analyzer-data/rust-analyzer
 "------
 " Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 " Plug 'rust-lang/rust.vim'
