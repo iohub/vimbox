@@ -40,6 +40,7 @@ let g:ycm_filetype_whitelist = {
 
 "-------
 " Go CompleteMe
+" go get -u github.com/jstemmer/gotags & go build install
 "------
 Plug 'fatih/vim-go'
 Plug 'dgryski/vim-godef'
