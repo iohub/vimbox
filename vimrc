@@ -117,8 +117,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " Plug 'iohub/vim-easygrep'
 Plug 'iohub/vim-ripgrep'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 
 let g:airline_theme='simple'
 let g:EasyGrepFilesToExclude="tags"
