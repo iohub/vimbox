@@ -103,7 +103,8 @@ set cursorline
 "--------------
 Plug 'scrooloose/nerdtree'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'humiaozuzu/TabBar'
+" Plug 'humiaozuzu/TabBar'
+Plug 'kien/tabman.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
 Plug 'kien/ctrlp.vim'
