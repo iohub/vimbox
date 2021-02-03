@@ -21,7 +21,7 @@ let g:ycm_rust_src_path = '~/.rustup/toolchains/stable-x86_64-apple-darwin/lib/r
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:EclimCompletionMethod = 'omnifunc'
 " nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <leader>gd :GoDef<CR>
+au FileType go nmap <Leader>gd <Plug>(go-def-vertical)
 " [ 'same-buffer', 'horizontal-split', 'vertical-split', 'new-tab' ]
 let g:ycm_goto_buffer_command='vertical-split'
 let g:ycm_add_preview_to_completeopt = 0
