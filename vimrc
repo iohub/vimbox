@@ -103,7 +103,7 @@ set cursorline
 "--------------
 Plug 'scrooloose/nerdtree'
 Plug 'Lokaltog/vim-easymotion'
-" Plug 'humiaozuzu/TabBar'
+Plug 'drmingdrmer/vim-tabbar'
 Plug 'kien/tabman.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
@@ -321,6 +321,8 @@ nnoremap <leader>i A
 nnoremap <leader>d D
 nmap <F2> :w<cr>
 nmap <F1> <nop>
+map <leader>1 :bp<cr>
+map <leader>2 :bp<cr>
 nnoremap 0 $
 nnoremap 9 0
 nnoremap <leader>h 0
