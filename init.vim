@@ -4,7 +4,6 @@ if &compatible
 endif
 call plug#begin('~/.vim/plugged')" Solarized Theme
 
-
 set encoding=utf-8
 set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 filetype plugin indent on
@@ -21,7 +20,8 @@ let g:ycm_rust_src_path = '~/.rustup/toolchains/stable-x86_64-apple-darwin/lib/r
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:EclimCompletionMethod = 'omnifunc'
 " nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-au FileType go nmap <Leader>gd <Plug>(go-def-vertical)
+nnoremap <leader>gd  <Plug>(coc-definition)
+nnoremap <leader>r  <Plug>(coc-references)
 " [ 'same-buffer', 'horizontal-split', 'vertical-split', 'new-tab' ]
 let g:ycm_goto_buffer_command='vertical-split'
 let g:ycm_add_preview_to_completeopt = 0
@@ -32,14 +32,11 @@ let g:ycm_semantic_triggers =  {
 			\ 'cs,lua,javascript': ['re!\w{2}'],
 			\ }
 
-
 let g:ycm_filetype_whitelist = {
             \ "c":1,
             \ "cpp":1,
             \ "go":1,
             \}
-
-
 
 "-------
 " Python CompleteMe
@@ -76,7 +73,6 @@ nmap <silent> cy <Plug>(coc-type-definition)
 nmap <silent> ci <Plug>(coc-implementation)
 nmap <silent> cr <Plug>(coc-references)
 
-
 let g:autofmt_autosave = 1
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -86,7 +82,6 @@ inoremap <silent><expr> <TAB>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
 
 "-------
 " Ocaml merlin helper
@@ -107,7 +102,6 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 au WinEnter * set cursorline
 au WinNew * set cursorline
 set cursorline
-
 
 "--------------
 " IDE features
@@ -408,4 +402,3 @@ hi CursorLine cterm=none ctermbg=DarkGrey ctermfg=White
 
 set wildignore+=vendor/**
 set wildignore+=output/**
-
